@@ -31,34 +31,34 @@ public class ClockScript : MonoBehaviour
 
         DateTime currentTime = DateTime.Now;
 
-       secondDegree = -(currentTime.Second / 60f) * 360f;
+        secondDegree = -(currentTime.Second / 60f) * 360f;
 
-    
+
 
         float minuteDegree = -(currentTime.Minute / 60f) * 360f;
 
         minuteHand.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, minuteDegree));
 
-        float hourDegree = -((currentTime.Hour) / 12f) * 360f;
+        float hourDegree = -((currentTime.Hour +hour ) / 12f) * 360f;
 
         hourHand.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, hourDegree));
 
         secondDegreeSmooth = -((currentTime.Second + currentTime.Millisecond / 1000f) / 60f) * 360;
-       
+
 
     }
     void ImproveMoveFeature()
     {
-       
+
         if (smoothSecondRotation)
         {
-           
+
             secondHand.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, secondDegreeSmooth));
         }
 
         else secondHand.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, secondDegree));
 
-        
+
     }
 
 
