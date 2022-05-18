@@ -39,7 +39,7 @@ public class ClockScript : MonoBehaviour
 
         minuteHand.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, minuteDegree));
 
-        float hourDegree = -((currentTime.Hour + hour) / 12f) * 360f;
+        float hourDegree = -((currentTime.Hour) / 12f) * 360f;
 
         hourHand.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, hourDegree));
 
