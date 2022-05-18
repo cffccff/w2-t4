@@ -10,9 +10,9 @@ public class ClockScript : MonoBehaviour
     [SerializeField] GameObject minuteHand;
     [SerializeField] GameObject hourHand;
 
-
-     public int hour = 0;
-    public float rotationSeconds, secondsDegree;
+    public bool smoothSecondRotation = false;
+    public int hour = 0;
+    public float secondDegreeSmooth, secondDegree;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,17 +23,17 @@ public class ClockScript : MonoBehaviour
     void Update()
     {
         RunClock();
-       
 
+        ImproveMoveFeature();
     }
     void RunClock()
     {
 
         DateTime currentTime = DateTime.Now;
 
-      float secondsDegree = -(currentTime.Second / 60f) * 360f;
+       secondDegree = -(currentTime.Second / 60f) * 360f;
 
-        secondHand.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, secondsDegree));
+    
 
         float minuteDegree = -(currentTime.Minute / 60f) * 360f;
 
@@ -43,12 +43,21 @@ public class ClockScript : MonoBehaviour
 
         hourHand.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, hourDegree));
 
-        
+        secondDegreeSmooth = -((currentTime.Second + currentTime.Millisecond / 1000f) / 60f) * 360;
        
 
     }
     void ImproveMoveFeature()
     {
+       
+        if (smoothSecondRotation)
+        {
+           
+            secondHand.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, secondDegreeSmooth));
+        }
+
+        else secondHand.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, secondDegree));
+
         
     }
 
